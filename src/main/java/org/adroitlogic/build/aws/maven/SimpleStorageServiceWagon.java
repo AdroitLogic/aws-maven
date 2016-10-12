@@ -22,11 +22,11 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.internal.Mimetypes;
 import com.amazonaws.services.s3.model.*;
-import com.amazonaws.services.s3.model.Region;
 import org.apache.maven.wagon.ResourceDoesNotExistException;
 import org.apache.maven.wagon.TransferFailedException;
 import org.apache.maven.wagon.authentication.AuthenticationException;
 import org.apache.maven.wagon.authentication.AuthenticationInfo;
+import org.apache.maven.wagon.proxy.ProxyInfo;
 import org.apache.maven.wagon.proxy.ProxyInfoProvider;
 import org.apache.maven.wagon.repository.Repository;
 
@@ -83,8 +83,18 @@ public final class SimpleStorageServiceWagon extends AbstractWagon {
             this.bucketName = S3Utils.getBucketName(repository);
             this.baseDirectory = S3Utils.getBaseDirectory(repository);
 
+            ProxyInfo pi = proxyInfoProvider.getProxyInfo("s3");
+            if (pi != null) {
+                clientConfiguration.setProxyHost(pi.getHost());
+                clientConfiguration.setProxyPort(pi.getPort());
+                clientConfiguration.setProxyUsername(pi.getUserName());
+                clientConfiguration.setProxyPassword(pi.getPassword());
+                clientConfiguration.setProxyDomain(pi.getNtlmDomain());
+                clientConfiguration.setProxyWorkstation(pi.getNtlmHost());
+            }
+
             this.amazonS3 = new AmazonS3Client(credentialsProvider, clientConfiguration);
-            com.amazonaws.services.s3.model.Region region = Region.fromLocationConstraint(this.amazonS3.getBucketLocation(this.bucketName));
+            Region region = Region.fromLocationConstraint(this.amazonS3.getBucketLocation(this.bucketName));
             this.amazonS3.setEndpoint(region.getEndpoint());
         }
     }

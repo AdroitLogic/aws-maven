@@ -45,10 +45,23 @@ final class S3Utils {
 
         if (proxyInfoProvider != null) {
             ProxyInfo proxyInfo = proxyInfoProvider.getProxyInfo("s3");
+
             if (proxyInfo != null) {
+                //System.out.println("Proxy Info : NTLM host: " + proxyInfo.getNtlmHost() + " domain: " + proxyInfo.getNtlmDomain() + " username: " + proxyInfo.getUserName() + " password: " + proxyInfo.getPassword() + " host: " + proxyInfo.getHost() + " port: " + proxyInfo.getPort());
                 clientConfiguration.withProxyHost(proxyInfo.getHost()).withProxyPort(proxyInfo.getPort());
+                if (proxyInfo.getUserName() != null) {
+                    clientConfiguration.setProxyUsername(proxyInfo.getUserName());
+                    clientConfiguration.setProxyPassword(proxyInfo.getPassword());
+                }
+                if (proxyInfo.getNtlmDomain() != null) {
+                    clientConfiguration.setProxyDomain(proxyInfo.getNtlmDomain());
+                }
+                if (proxyInfo.getNtlmHost() != null) {
+                    clientConfiguration.setProxyWorkstation(proxyInfo.getNtlmHost());
+                }
             }
         }
+        //clientConfiguration.setProtocol(com.amazonaws.Protocol.HTTP);
 
         return clientConfiguration;
     }

@@ -32,7 +32,10 @@ import org.apache.maven.wagon.repository.Repository;
 import org.apache.maven.wagon.resource.Resource;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 abstract class AbstractWagon implements Wagon {
 
@@ -143,6 +146,30 @@ abstract class AbstractWagon implements Wagon {
         this.repository = source;
         this.sessionListenerSupport.fireSessionOpening();
         try {
+            final String confFile = System.getProperty("user.home") + File.separator + ".m2" + File.separator + "s3proxy.properties";
+            if (new File(confFile).exists()) {
+                Properties p = new Properties();
+                try (FileInputStream fis = new FileInputStream(confFile)) {
+                    p.load(fis);
+                    ProxyInfo pi = new ProxyInfo();
+                    pi.setType("s3");
+                    pi.setHost(p.getProperty("host"));
+                    pi.setPort(Integer.parseInt(p.getProperty("port")));
+                    pi.setUserName(p.getProperty("username"));
+                    if (p.getProperty("password") != null) {
+                        pi.setPassword(p.getProperty("password"));
+                    } else {
+                        pi.setPassword(System.getenv("PROXY_PASSWORD"));
+                    }
+
+                    pi.setNtlmDomain(p.getProperty("ntlmdomain"));
+                    pi.setNtlmHost(p.getProperty("ntlmhost"));
+                    proxyInfoProvider = new NullProtectingProxyInfoProvider(pi);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             connectToRepository(source, authenticationInfo, proxyInfoProvider);
             this.sessionListenerSupport.fireSessionLoggedIn();
             this.sessionListenerSupport.fireSessionOpened();

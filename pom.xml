@@ -6,7 +6,7 @@
 	<groupId>org.adroitlogic.build</groupId>
 	<artifactId>aws-maven</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Amazon Web Services S3 Maven Wagon Support forked from https://github.com/spring-projects/aws-maven</name>
 	<description>Standard Maven wagon support for s3:// urls forked from https://github.com/spring-projects/aws-maven</description>
 
@@ -152,7 +152,6 @@
 			<id>nebhale</id>
 			<name>Ben Hale</name>
 			<email>bhale@gopivotal.com</email>
-			<roles>original developer</roles>
 		</developer>
 	</developers>
 
