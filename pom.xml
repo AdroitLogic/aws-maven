@@ -3,12 +3,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.springframework.build</groupId>
+	<groupId>org.adroitlogic.build</groupId>
 	<artifactId>aws-maven</artifactId>
 	<packaging>jar</packaging>
-	<version>5.1.0.BUILD-SNAPSHOT</version>
-	<name>Amazon Web Services S3 Maven Wagon Support</name>
-	<description>Standard Maven wagon support for s3:// urls</description>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>Amazon Web Services S3 Maven Wagon Support forked from https://github.com/spring-projects/aws-maven</name>
+	<description>Standard Maven wagon support for s3:// urls forked from https://github.com/spring-projects/aws-maven</description>
 
 	<properties>
 		<amazonaws.version>1.7.1</amazonaws.version>
@@ -112,17 +112,17 @@
 					<runOrder>random</runOrder>
 				</configuration>
 			</plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>2.2</version>
-            </plugin>
+            </plugin>-->
 		</plugins>
 	</build>
 
-	<url>https://github.com/spring-projects/aws-maven</url>
+	<url>https://github.com/AdroitLogic/aws-maven</url>
 
-	<inceptionYear>2007</inceptionYear>
+	<inceptionYear>2016</inceptionYear>
 
 	<licenses>
 		<license>
@@ -133,19 +133,14 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:https://github.com/spring-projects/aws-maven.git</connection>
-		<url>https://github.com/spring-projects/aws-maven</url>
+		<connection>scm:git:https://github.com/AdroitLogic/aws-maven.git</connection>
+		<url>https://github.com/AdroitLogic/aws-maven</url>
 	</scm>
 
 	<organization>
-		<name>Spring Framework</name>
-		<url>http://spring.io</url>
+		<name>AdroitLogic</name>
+		<url>http://adroitlogic.org</url>
 	</organization>
-
-	<ciManagement>
-		<system>Bamboo</system>
-		<url>https://build.springsource.org/browse/BUILD-AWSMAVEN</url>
-	</ciManagement>
 
 	<issueManagement>
 		<system>Github</system>
@@ -157,6 +152,7 @@
 			<id>nebhale</id>
 			<name>Ben Hale</name>
 			<email>bhale@gopivotal.com</email>
+			<roles>original developer</roles>
 		</developer>
 	</developers>
 
