@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
  * the S3 service should be in the form of <code>s3://bucket.name</code>. As an example
  * <code>s3://static.springframework.org</code> would put files into the <code>static.springframework.org</code> bucket
  * on the S3 service.
- * <p/>
+ *
  * This implementation uses the <code>username</code> and <code>passphrase</code> portions of the server authentication
  * metadata for credentials.
  */
