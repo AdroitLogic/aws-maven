@@ -83,14 +83,16 @@ public final class SimpleStorageServiceWagon extends AbstractWagon {
             this.bucketName = S3Utils.getBucketName(repository);
             this.baseDirectory = S3Utils.getBaseDirectory(repository);
 
-            ProxyInfo pi = proxyInfoProvider.getProxyInfo("s3");
-            if (pi != null) {
-                clientConfiguration.setProxyHost(pi.getHost());
-                clientConfiguration.setProxyPort(pi.getPort());
-                clientConfiguration.setProxyUsername(pi.getUserName());
-                clientConfiguration.setProxyPassword(pi.getPassword());
-                clientConfiguration.setProxyDomain(pi.getNtlmDomain());
-                clientConfiguration.setProxyWorkstation(pi.getNtlmHost());
+            if(proxyInfoProvider != null) {
+                ProxyInfo pi = proxyInfoProvider.getProxyInfo("s3");
+                if (pi != null) {
+                    clientConfiguration.setProxyHost(pi.getHost());
+                    clientConfiguration.setProxyPort(pi.getPort());
+                    clientConfiguration.setProxyUsername(pi.getUserName());
+                    clientConfiguration.setProxyPassword(pi.getPassword());
+                    clientConfiguration.setProxyDomain(pi.getNtlmDomain());
+                    clientConfiguration.setProxyWorkstation(pi.getNtlmHost());
+                }
             }
 
             this.amazonS3 = new AmazonS3Client(credentialsProvider, clientConfiguration);
