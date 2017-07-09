@@ -7,7 +7,7 @@
     <groupId>org.adroitlogic.build</groupId>
     <artifactId>aws-maven</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>Amazon Web Services S3 Maven Wagon Support forked from https://github.com/spring-projects/aws-maven</name>
     <description>Standard Maven wagon support for s3:// urls forked from https://github.com/spring-projects/aws-maven
     </description>
@@ -100,6 +100,10 @@
                 <exclusion>
                     <groupId>stax</groupId>
                     <artifactId>stax</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>joda-time</groupId>
+                    <artifactId>joda-time</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
